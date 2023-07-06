@@ -1,0 +1,41 @@
+{
+	"family": "firelens-example-s3-metadata-customize-key",
+	"taskRoleArn": "arn:aws:iam::XXXXXXXXXXXX:role/ecs_task_iam_role",
+	"executionRoleArn": "arn:aws:iam::XXXXXXXXXXXX:role/ecs_task_execution_role",
+	"containerDefinitions": [
+		{
+			"essential": true,
+			"image": "906394416424.dkr.ecr.us-east-1.amazonaws.com/aws-for-fluent-bit:init-latest",
+			"name": "log_router",
+			"firelensConfiguration": {
+				"type": "fluentbit",
+				"enable-ecs-log-metadata": "false"
+			},
+			"environment": [
+                {
+                    "name": "aws_fluent_bit_init_s3_1",
+                    "value": "arn:aws:s3:::your-bucket/init-example.conf"
+                }
+			],
+			"logConfiguration": {
+				"logDriver": "awslogs",
+				"options": {
+					"awslogs-group": "firelens-container",
+					"awslogs-region": "us-west-2",
+					"awslogs-create-group": "true",
+					"awslogs-stream-prefix": "firelens"
+				}
+			},
+			"memoryReservation": 50
+		},
+		{
+			 "essential": true,
+			 "image": "nginx",
+			 "name": "app",
+			 "logConfiguration": {
+				"logDriver":"awsfirelens"
+			},
+			"memoryReservation": 100
+		}
+	]
+}
