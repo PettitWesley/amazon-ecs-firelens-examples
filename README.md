@@ -18,6 +18,8 @@ We want examples of as many use cases in this repository as possible! Submit a P
 * [Setting awsfirelens log driver buffer limit size](examples/fluent-bit/log-driver-buffer-limit)
 * [How to set Fluentd and Fluent Bit input parameters (including Mem_Buf_Limit) in FireLens](https://aws.amazon.com/blogs/containers/how-to-set-fluentd-and-fluent-bit-input-parameters-in-firelens/)
 * [How to prevent OOMKills (Out of Memory) in FireLens](examples/fluent-bit/oomkill-prevention)
+* [ECS Metadata FAQ]()
+* [Use Metadata into S3 Key (file name)](examples/fluent-bit/metadata-s3-key/)
 
 ### AWS for Fluent Bit init tag examples
 An [init tag](https://github.com/aws/aws-for-fluent-bit#using-the-init-tag) is distributed with each release, it adds useful features for ECS customers. 
