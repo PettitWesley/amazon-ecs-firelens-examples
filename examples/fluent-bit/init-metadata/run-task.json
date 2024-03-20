@@ -1,0 +1,16 @@
+{
+    "cluster": "firelens-private-subnets",
+    "taskDefinition": "init-ignore-firelens:9",
+    "launchType": "FARGATE",
+    "networkConfiguration": {
+        "awsvpcConfiguration": {
+            "subnets": [
+                "subnet-09a1628374177ef59",
+                "subnet-0ac142f14d401e7c6"
+            ],
+            "securityGroups": [
+                "sg-0e55cb1a840420688"
+            ]
+        }
+    }
+}

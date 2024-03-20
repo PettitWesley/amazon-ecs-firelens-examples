@@ -1,11 +1,14 @@
 {
-    "family": "firelens-example-init-metadata",
-    "taskRoleArn": "arn:aws:iam::xxxxxxxxxx:role/ecs_task_iam_role",
-    "executionRoleArn": "arn:aws:iam::xxxxxxxxxx:role/ecs_task_execution_role",
+    "family": "init-ignore-firelens",
+    "taskRoleArn": "arn:aws:iam::144718711470:role/ecs_task_role",
+    "executionRoleArn": "arn:aws:iam::144718711470:role/ecsTaskExecutionRole",
+    "networkMode": "awsvpc",
+    "memory": "1024",
+    "cpu": "512",
     "containerDefinitions": [
         {
             "essential": true,
-            "image": "public.ecr.aws/aws-observability/aws-for-fluent-bit:init-latest",
+            "image": "144718711470.dkr.ecr.us-west-2.amazonaws.com/aws-for-fluent-bit:init-ignore-firelens-2",
             "name": "log_router",
             "firelensConfiguration": {
                 "type": "fluentbit"
@@ -16,14 +19,40 @@
                     "awslogs-group": "firelens-container",
                     "awslogs-region": "us-west-2",
                     "awslogs-create-group": "true",
-                    "awslogs-stream-prefix": "firelens-init"
+                    "awslogs-stream-prefix": "init-ignore-firelens"
                 }
             },
+            "environment": [
+                {
+                    "name": "aws_fluent_bit_init_s3_1",
+                    "value": "arn:aws:s3:::firenosed-dolphin-bucket/dummy-filter.conf"
+                },
+                {
+                    "name": "aws_fluent_bit_init_s3_2",
+                    "value": "arn:aws:s3:::firenosed-dolphin-bucket/dummy-input.conf"
+                },
+                {
+                    "name": "aws_fluent_bit_init_s3_3",
+                    "value": "arn:aws:s3:::firenosed-dolphin-bucket/dummy-parser.conf"
+                },
+                {
+                    "name": "aws_fluent_bit_init_s3_4",
+                    "value": "arn:aws:s3:::firenosed-dolphin-bucket/stdout.conf"
+                },
+                {
+                    "name": "aws_fluent_bit_init_ignore_firelens_config",
+                    "value": "true"
+                },
+                {
+                    "name": "FLB_LOG_LEVEL",
+                    "value": "debug"
+                }
+            ],
             "memoryReservation": 50
         },
         {
             "essential": true,
-            "image": "your-app-image",
+            "image": "httpd",
             "name": "app",
             "logConfiguration": {
                 "logDriver": "awsfirelens",
